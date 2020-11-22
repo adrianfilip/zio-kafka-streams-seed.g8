@@ -1,4 +1,4 @@
-# zio-seed.g8
+# zio-kafka-streams-seed.g8
 ZIO Giter8 template.
 
 Use as: sbt new adrianfilip/zio-kafka-streams-seed.g8 
