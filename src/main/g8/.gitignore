@@ -1,0 +1,10 @@
+out
+.idea
+.metals
+project/metals.sbt
+project/target
+project/project
+.bloop
+target
+dist
+
