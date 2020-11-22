@@ -39,7 +39,7 @@ object WordCount extends App {
 
       builder
         .stream[String, String]("streams-plaintext-input")
-        .flatMapValues((value: String) => value.toLowerCase(Locale.getDefault).split("\\W+"))
+        .flatMapValues((value: String) => value.toLowerCase(Locale.getDefault).split("\\\W+"))
         .groupBy((_: String, value: String) => value)
         .count()(Materialized.as[String, Long, KeyValueStore[Bytes, Array[Byte]]]("counts-store"))
         .toStream

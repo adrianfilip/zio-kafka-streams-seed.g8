@@ -34,7 +34,7 @@ object LineSplit extends App {
 
       builder
         .stream[String, String]("streams-plaintext-input")
-        .flatMapValues((value: String) => value.split("\\W+"))
+        .flatMapValues((value: String) => value.split("\\\W+"))
         .to("streams-linesplit-output")
 
       val topology = builder.build()
