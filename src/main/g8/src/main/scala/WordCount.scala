@@ -24,8 +24,8 @@ object WordCount extends App {
 
   def prog =
     kafkaStreams().use { ks =>
-      ZIO(ks.start())
-    } *> ZIO.never
+      ZIO(ks.start()) *> ZIO.never
+    }
 
   def kafkaStreams(): ZManaged[Any, Throwable, KafkaStreams] =
     ZManaged.make(ZIO {
