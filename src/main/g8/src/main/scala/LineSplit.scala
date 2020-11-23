@@ -15,12 +15,9 @@ import zio._
 object LineSplit extends App {
 
   def run(args: List[String]) =
-    prog.exitCode
+    kafkaStreams.useForever.exitCode
 
-  def prog =
-    kafkaStreams().use { _ => ZIO.never }
-
-  def kafkaStreams(): ZManaged[Any, Throwable, KafkaStreams] =
+  def kafkaStreams: ZManaged[Any, Throwable, KafkaStreams] =
     ZManaged.make(ZIO {
       val builder = new StreamsBuilder
 
