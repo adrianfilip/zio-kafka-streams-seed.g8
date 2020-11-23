@@ -17,9 +17,7 @@ object Pipe extends App {
     prog.exitCode
 
   def prog =
-    kafkaStreams().use { ks =>
-      ZIO(ks.start()) *> ZIO.never
-    }
+    kafkaStreams().use { _ => ZIO.never }
 
   def kafkaStreams(): ZManaged[Any, Throwable, KafkaStreams] =
     ZManaged.make(ZIO {
@@ -34,7 +32,9 @@ object Pipe extends App {
       builder.stream("streams-plaintext-input").to("streams-pipe-output")
 
       val topology = builder.build()
-      new KafkaStreams(topology, props)
+      val ks = new KafkaStreams(topology, props)
+      ks.start()
+      ks
     })(ks => ZIO(ks.close()).orDie)
 
 }

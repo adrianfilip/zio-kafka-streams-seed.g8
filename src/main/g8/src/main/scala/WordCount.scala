@@ -23,9 +23,7 @@ object WordCount extends App {
     prog.exitCode
 
   def prog =
-    kafkaStreams().use { ks =>
-      ZIO(ks.start()) *> ZIO.never
-    }
+    kafkaStreams().use { _ => ZIO.never }
 
   def kafkaStreams(): ZManaged[Any, Throwable, KafkaStreams] =
     ZManaged.make(ZIO {
@@ -46,7 +44,9 @@ object WordCount extends App {
         .to("streams-wordcount-output")(Produced.`with`(Serdes.String, Serdes.Long))
 
       val topology = builder.build()
-      new KafkaStreams(topology, props)
+      val ks = new KafkaStreams(topology, props)
+      ks.start()
+      ks
     })(ks => ZIO(ks.close()).orDie)
 
 }

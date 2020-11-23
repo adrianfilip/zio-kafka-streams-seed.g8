@@ -18,9 +18,7 @@ object LineSplit extends App {
     prog.exitCode
 
   def prog =
-    kafkaStreams().use { ks =>
-      ZIO(ks.start()) *> ZIO.never
-    }
+    kafkaStreams().use { _ => ZIO.never }
 
   def kafkaStreams(): ZManaged[Any, Throwable, KafkaStreams] =
     ZManaged.make(ZIO {
@@ -38,7 +36,9 @@ object LineSplit extends App {
         .to("streams-linesplit-output")
 
       val topology = builder.build()
-      new KafkaStreams(topology, props)
+      val ks = new KafkaStreams(topology, props)
+      ks.start()
+      ks
     })(ks => ZIO(ks.close()).orDie)
 
 }
