@@ -102,7 +102,7 @@ object WordCountSpec extends DefaultRunnableSpec {
     }
   )
 
-  def toScala(map: Map[String, java.lang.Long]): Map[String, Long] = map.map(x => x._1 -> x._2.longValue())
+  def toScala(map: Map[String, java.lang.Long]): Map[String, Long] = map.view.mapValues(_.longValue()).toMap
 
   def testDriver: Managed[Throwable, TopologyTestDriver] =
     Managed.make(Task {
