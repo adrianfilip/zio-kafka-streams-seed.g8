@@ -20,7 +20,8 @@ lazy val root =
         library.zio,
         library.zioTest    % Test,
         library.zioTestSbt % Test,
-        "org.apache.kafka" %% "kafka-streams-scala" % "2.6.0"
+        "org.apache.kafka" %% "kafka-streams-scala" % "2.6.0",
+        "org.apache.kafka" % "kafka-streams-test-utils" % "2.6.0" % Test,
       ),
       testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
     )
