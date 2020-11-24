@@ -9,8 +9,8 @@ import zio.{ Managed, Task }
 import scala.jdk.CollectionConverters.MapHasAsScala
 
 object WordCountSpec extends DefaultRunnableSpec {
-  def spec = suite("HelloWorldSpec")(
-    testM("sayHello correctly displays output") {
+  def spec = suite("WordCountSpec")(
+    testM("WordCount topology counts words occurances correctly at every step") {
       for {
         t <- testDriver.use(testDriver =>
               Task {
