@@ -106,7 +106,6 @@ object WordCountSpec extends DefaultRunnableSpec {
 
   def testDriver: Managed[Throwable, TopologyTestDriver] =
     Managed.make(Task {
-      // using DSL
       val topology = WordCount.createWordCountTopology
 
       // setup test driver
